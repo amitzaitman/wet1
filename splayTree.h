@@ -31,7 +31,7 @@ private:
     void insert(int key, T* data, node *father);
     node *find(int key, node *father);
     void splay(int key, node *x);
-    void split(node* root, node* right, node* left);
+    void split(node* root, node* right, node* left);cc
     void leftRotate(node *x);
     void rightRotate(node *x);
     node *root;
