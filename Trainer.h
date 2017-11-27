@@ -1,15 +1,11 @@
-//
-// Created by zamit on 11/26/17.
-//
-
 #ifndef WET1_TRAINER_H
 #define WET1_TRAINER_H
-
+#include "splayTree.h"
 
 class Trainer {
     int id;
-
-
+    splayTree<gladiator> gladById;
+    splayTree<gladiator> gladByLvl;
 };
 
 

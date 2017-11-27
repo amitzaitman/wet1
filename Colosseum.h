@@ -14,6 +14,9 @@ typedef enum {
     INVALID_INPUT = -3
 } StatusType;
 
+typedef struct gladiator Gladiator;
+typedef struct trainer Trainer;
+
 
 class Colosseum {
 public:

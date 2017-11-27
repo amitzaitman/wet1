@@ -22,6 +22,7 @@ void* Init() {
 *                SUCCESS - Otherwise.
 */
 StatusType AddTrainer(void *DS, int trainerID){
+    if (!DS || trainerID<=0) return INVALID_INPUT;
     return ((Colosseum*)DS)-> AddTrainer (trainerID);
 }
 /* Description:   Adds a new gladiator to the system.
@@ -36,6 +37,7 @@ StatusType AddTrainer(void *DS, int trainerID){
 *                SUCCESS - Otherwise.
 */
 StatusType BuyGladiator(void *DS, int gladiatorID, int trainerID, int level) {
+    if (!DS || gladiatorID<=0 || trainerID<=0 || level<=0) return INVALID_INPUT;
     return ((Colosseum *) DS)->BuyGladiator(gladiatorID, trainerID, level);
 }
 
@@ -49,6 +51,7 @@ StatusType BuyGladiator(void *DS, int gladiatorID, int trainerID, int level) {
 *                SUCCESS - Otherwise.
 */
 StatusType FreeGladiator(void *DS, int gladiatorID){
+    if (!DS || gladiatorID<=0) return INVALID_INPUT;
     return ((Colosseum*)DS)-> FreeGladiator (gladiatorID);
 }
 
@@ -63,6 +66,7 @@ StatusType FreeGladiator(void *DS, int gladiatorID){
 *                SUCCESS - Otherwise.
 */
 StatusType LevelUp(void *DS, int gladiatorID, int levelIncrease){
+    if (!DS || gladiatorID<0 || levelIncrease<=0) return INVALID_INPUT;
     return ((Colosseum*)DS)-> LevelUp(gladiatorID, levelIncrease);
 }
 
@@ -77,6 +81,7 @@ StatusType LevelUp(void *DS, int gladiatorID, int levelIncrease){
 *                SUCCESS - Otherwise.
 */
 StatusType UpgradeGladiator(void *DS, int gladiatorID, int upgradedID){
+    if (!DS || gladiatorID<=0 || upgradedID<=0) return INVALID_INPUT;
     return ((Colosseum*)DS)-> UpgradeGladiator (gladiatorID, upgradedID);
 }
 
@@ -90,6 +95,7 @@ StatusType UpgradeGladiator(void *DS, int gladiatorID, int upgradedID){
 *                SUCCESS - Otherwise.
 */
 StatusType GetTopGladiator(void *DS, int trainerID, int *gladiatorID){
+    if (!DS || trainerID<=0 || !gladiatorID) return INVALID_INPUT;
     return ((Colosseum*)DS)-> GetTopGladiator (trainerID, gladiatorID);
 }
 
@@ -105,6 +111,7 @@ StatusType GetTopGladiator(void *DS, int trainerID, int *gladiatorID){
 *                SUCCESS - Otherwise.
 */
 StatusType GetAllGladiatorsByLevel(void *DS, int trainerID, int **gladiators, int *numOfGladiator){
+    if (!DS || trainerID<=0 || !gladiators || !numOfGladiator) return INVALID_INPUT;
     return ((Colosseum*)DS)-> GetAllGladiatorsByLevel (trainerID, gladiators, numOfGladiator);
 }
 
@@ -119,6 +126,7 @@ StatusType GetAllGladiatorsByLevel(void *DS, int trainerID, int **gladiators, in
 *                SUCCESS - Otherwise.
 */
 StatusType UpdateLevels(void *DS, int stimulantCode, int stimulantFactor){
+    if (!DS || stimulantCode<1 || stimulantFactor<1) return INVALID_INPUT;
     return ((Colosseum*)DS)-> UpdateLevels (stimulantCode, stimulantFactor);
 }
 
@@ -130,6 +138,7 @@ StatusType UpdateLevels(void *DS, int stimulantCode, int stimulantFactor){
 * Return Values: None.
 */
 void Quit(void** DS){
+    if (!DS) return;
     ((Colosseum*)DS)->Quit;
     DS = NULL;
 }
