@@ -15,7 +15,9 @@ namespace Colosseum {
         SplayTree<Gladiator,levelKey> gladByLvl;
         int bestGladId;
     public:
-        Colosseum() : bestGladId(-1) {};
+        Colosseum() : bestGladId(-1) {
+            bestGladId =5;
+        };
         ~Colosseum() {};
 
         StatusType AddTrainer(int trainerID) {
