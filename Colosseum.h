@@ -5,14 +5,7 @@
 #ifndef WET1_COLOSSEUM_H
 #define WET1_COLOSSEUM_H
 
-/* Return Values
-* ----------------------------------- */
-typedef enum {
-    SUCCESS = 0,
-    FAILURE = -1,
-    ALLOCATION_ERROR = -2,
-    INVALID_INPUT = -3
-} StatusType;
+#include "library1.h"
 
 typedef struct gladiator Gladiator;
 typedef struct trainer Trainer;

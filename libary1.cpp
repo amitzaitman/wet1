@@ -95,7 +95,7 @@ StatusType UpgradeGladiator(void *DS, int gladiatorID, int upgradedID){
 *                SUCCESS - Otherwise.
 */
 StatusType GetTopGladiator(void *DS, int trainerID, int *gladiatorID){
-    if (!DS || trainerID<=0 || !gladiatorID) return INVALID_INPUT;
+    if (!DS || !trainerID || !gladiatorID) return INVALID_INPUT;
     return ((Colosseum*)DS)-> GetTopGladiator (trainerID, gladiatorID);
 }
 

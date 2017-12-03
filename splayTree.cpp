@@ -1,61 +1,71 @@
 #include "splayTree.h"
-#include<stdio.h>
-#include<stdlib.h>
-
-#define SWAP(type, a, b) \
-    { \
-        type __swap_temp; \
-        __swap_temp = (b); \
-        (b) = (a); \
-        (a) = __swap_temp; \
-    }
 
 template <class T>
-void node::swap(node other){
-    SWAP(T, data, other.data);
-    SWAP(int, key, other.key);
-}
+SplayTree<T>::node::node(int key, const T& data, node* rightSon, node* leftSon)
+        : key(key), data(data),
+          rightSon(rightSon), leftSon(leftSon), parent(nullptr){}
 
-int SplayTree::node::operator<(const node& other){
+template <class T>
+int SplayTree<T>::node::operator<(const node& other){
     return (key < other.key);
 }
 
-int SplayTree::node::operator==(const node& other){
+template <class T>
+int SplayTree<T>::node::operator==(const node& other){
     return (key == other.key);
 }
+template <class T>
+SplayTree<T>::SplayTree(node* root) : root (root){}
+
 
 template <class T>
-node::node(int key, T* data, node* rightSon, node* leftSon)
-        : key(key), data(data), rightSon(rightSon), leftSon(leftSon){}
-
-SplayTree::SplayTree(){};
-~SplayTree(){};
-
-template <class T>
-void SplayTree::insert(int key, T* data){
-    insert(key, data, root);
-}
-
-void SplayTree::remove(int key){
-    splay(key, root);
-}
-
-node* SplayTree::find(int key){
-    return find(key, root);
-}
-
-void SplayTree::destroy_tree(){
-    destroy_tree(root);
+SplayTree<T>::~SplayTree<T>(){
+    destroyTree();
 };
 
 template <class T>
-void SplayTree::insert(int key, T* data, node* root) {
-    node *right, *left;
-    split(root, right, left);
-    root = new node(key, data, right, left);
+void SplayTree<T>::remove(int key){
+    find(key);
+    join(root->rightSon, root->leftSon);
 }
 
-void SplayTree::splay(int key, node *x){
+template <class T>
+T& SplayTree<T>::find(int key){
+//    node *result;
+    splay(find(key, root));
+    return root->data;
+}
+
+template <class T>
+void SplayTree<T>::addToDataVec(std::vector<T> allData, node *father){
+    if (!father) return;
+    addToDataVec(allData, father->leftSon);
+    allData.insert(father->data);
+    addToDataVec(allData, father->rightSon);
+}
+
+//template <class T>
+//SplayTree<T>::node* SplayTree<T>::find(int key, SplayTree<T>::node* father){
+//    if (!father) return nullptr;
+//    if (father->key == key) return father;
+//    if (father->key < key) return find(key, father->rightSon);
+//    return find(key, father->leftSon);
+//}
+
+template <class T>
+void SplayTree<T>::destroyTree(){
+    destroyTree(root);
+}
+
+//template <class T>
+//void SplayTree<T>::insert(int key, const T& data) {
+//    node *right, *left;
+//    split(right, left, key);
+//    root = new node(key, data, right, left);
+//}
+
+template <class T>
+void SplayTree<T>::splay(node *x){
     while( x->parent ) {
         if( !x->parent->parent ) {
             if( x->parent->leftSon == x ) rightRotate( x->parent );
@@ -75,12 +85,33 @@ void SplayTree::splay(int key, node *x){
         }
     }
 }
-
-void split(node* root, node* right, node* left){
-
+template <class T>
+void SplayTree<T>::join(SplayTree T1, SplayTree T2){
+    T1.findMax();
+    root = T1.root;
+    root->rootSetup();
+    root->rightSon = T2.root;
+    root->rightSon->parent = root;
 }
 
-void SplayTree::leftRotate(node *x) {
+template <class T>
+void SplayTree<T>::findMax(){
+    node * max = root;
+    while (max->rightSon){
+        max = max->rightSon;
+    }
+    splay(max);
+}
+
+template <class T>
+void SplayTree<T>::split(node* right, node* left, int key){
+    find(key);
+    right =  root->rightSon;
+    left = root->leftSon;
+}
+
+template <class T>
+void SplayTree<T>::leftRotate(node *x) {
     node *y = x->rightSon;
     if(y) {
         x->rightSon = y->leftSon;
@@ -94,12 +125,12 @@ void SplayTree::leftRotate(node *x) {
     if(y) y->leftSon = x;
     x->parent = y;
 }
-
-void SplayTree::rightRotate( node *x ) {
+template <class T>
+void SplayTree<T>::rightRotate(node *x) {
     node *y = x->leftSon;
-    if(y) {
+    if (y) {
         x->leftSon = y->rightSon;
-        if( y->rightSon ) y->rightSon->parent = x;
+        if (y->rightSon) y->rightSon->parent = x;
         y->parent = x->parent;
     }
     if( !x->parent ) root = y;
@@ -108,5 +139,10 @@ void SplayTree::rightRotate( node *x ) {
     if(y) y->rightSon = x;
     x->parent = y;
 }
-
-
+template <class T>
+void SplayTree<T>::destroyTree(node *father){
+    if (!father) return;
+    destroyTree(father->rightSon);
+    destroyTree(father->leftSon);
+    delete father;
+}
