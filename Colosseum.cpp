@@ -54,7 +54,7 @@ namespace Colosseum {
                 glad.getTrainer()->removeGladiator(glad);
                 gladById.remove(gladiatorID);
                 gladByLvl.remove(glad);
-                bestGladId = gladByLvl.findMax().getId();
+                bestGladId = gladByLvl.findMax();
             }
             catch(ElementNotFound){
                 return FAILURE;
@@ -71,7 +71,7 @@ namespace Colosseum {
                 glad.setLevel(glad.getLevel() + levelIncrease);
                 gladById.insert(glad.getId(),glad);
                 gladByLvl.insert(glad,glad);
-                bestGladId = gladByLvl.findMax().getId();
+                bestGladId = gladByLvl.findMax();
             }
             catch(ElementNotFound){
                 return FAILURE;

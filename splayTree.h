@@ -83,25 +83,24 @@ public:
         return root->data;
     }
 
-    int findMax(){
-        if (!root)
-            return NULL;
+    T& findMax(){
+        if (!root) return NULL;
         node * max = root;
         while (max->rightSon){
             max = max->rightSon;
         }
-        //splay(max);
-        return max->key;
+  //      splay(max);
+        return root->data;
     }
 
-    int findMin(){
+    T& findMin(){
         if (!root) return NULL;
         node * min = root;
         while (min->leftSon){
             min = min->leftSon;
         }
-        //splay(min);
-        return min->key;
+       // splay(min);
+        return root->data;
     }
 
     void join(SplayTree T1, SplayTree T2){
