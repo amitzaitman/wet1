@@ -4,6 +4,8 @@
 #include <vector>
 #include <assert.h>
 #include <stdexcept>
+#include <new>
+
 
 class alreadyIn : public std::exception{};
 class ElementNotFound : public std::exception{};
@@ -81,31 +83,31 @@ public:
         return root->data;
     }
 
-    T& findMax(){
+    int findMax(){
         if (!root)
             return NULL;
         node * max = root;
         while (max->rightSon){
             max = max->rightSon;
         }
-        splay(max);
-        return root->data;
+        //splay(max);
+        return max->key;
     }
 
-    T& findMin(){
+    int findMin(){
         if (!root) return NULL;
         node * min = root;
         while (min->leftSon){
             min = min->leftSon;
         }
-        splay(min);
-        return root->data;
+        //splay(min);
+        return min->key;
     }
 
     void join(SplayTree T1, SplayTree T2){
-        T2.findMax();
+        splay(find(T2.findMax(), root));
         if (!T2.root){
-            T1.findMin();
+            splay(find(T1.findMin(), root));
             root = T1.root;
             T1.root = NULL;
             return;
@@ -120,7 +122,11 @@ public:
     }
 
     T* getAllData(){
+        if(!size) return NULL;
         T* allData = (T*) malloc(size * sizeof(T));
+        if(!allData) {
+            throw std::bad_alloc();
+        }
         int place = 0;
         addToDataVec(allData, &place, root);
         return allData;
