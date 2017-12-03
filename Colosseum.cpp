@@ -15,9 +15,7 @@ namespace Colosseum {
         SplayTree<Gladiator,levelKey> gladByLvl;
         int bestGladId;
     public:
-        Colosseum() : bestGladId(-1) {
-            bestGladId =5;
-        };
+        Colosseum() : bestGladId(-1) {};
         ~Colosseum() {};
 
         StatusType AddTrainer(int trainerID) {
@@ -39,9 +37,9 @@ namespace Colosseum {
                 gladById.insert(gladiatorID, glad);
                 gladByLvl.insert(levelKey(glad), glad);
                 trainer->addGladiator(glad);
-                bestGladId=gladByLvl.findMax().getId();///////////////////////
+                bestGladId=gladByLvl.findMax().getId();
             }
-            catch(ElementNotFound()) {///////////////////////////////////
+            catch(ElementNotFound()) {
                 return FAILURE;
             }
             catch  (alreadyIn) {
@@ -51,13 +49,12 @@ namespace Colosseum {
         }
 
         StatusType FreeGladiator(int gladiatorID) {
-
             try {
                 Gladiator glad = gladById.find(gladiatorID);
                 glad.getTrainer()->removeGladiator(glad);
                 gladById.remove(gladiatorID);
                 gladByLvl.remove(glad);
-                bestGladId = gladByLvl.findMax().getId();///////////////////////
+                bestGladId = gladByLvl.findMax().getId();
             }
             catch(ElementNotFound){
                 return FAILURE;
