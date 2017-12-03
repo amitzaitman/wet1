@@ -1,6 +1,4 @@
-//
-// Created by zamit on 11/26/17.
-//
+
 
 #include "Colosseum.h"
 #include "splayTree.h"
@@ -18,7 +16,7 @@ namespace Colosseum {
         int bestGladId;
     public:
         Colosseum() : bestGladId(-1) {};
-        ~Colosseum() {};vvvv/////////////////////////////////////////
+        ~Colosseum() {};
 
         StatusType AddTrainer(int trainerID) {
             Trainer *trainer = new Trainer(trainerID);
