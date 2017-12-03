@@ -18,7 +18,7 @@ namespace Colosseum {
         int bestGladId;
     public:
         Colosseum() : bestGladId(-1) {};
-        ~Colosseum() {};
+        ~Colosseum() {};vvvv/////////////////////////////////////////
 
         StatusType AddTrainer(int trainerID) {
             Trainer *trainer = new Trainer(trainerID);
