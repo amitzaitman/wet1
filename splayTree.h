@@ -131,6 +131,10 @@ public:
         return allData;
     }
 
+    int getSize(){
+            return size;
+    }
+
     void destroyTree(){
         destroyTree(root);
     }

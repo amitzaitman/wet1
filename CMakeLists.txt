@@ -5,6 +5,7 @@ set(g++ –DNDEBUG –Wall)
 
 set(SOURCE_FILES
         library1.h
+        #library1_tests.cpp
         main1.cpp
         splayTree.h
         splayTree.cpp
