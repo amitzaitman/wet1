@@ -1,7 +1,7 @@
 #include "splayTree.h"
 
 template <class T>
-SplayTree<T>::node::node(int key, const T& data, node* rightSon, node* leftSon)
+SplayTree<T>::node(int key, const T& data, node* rightSon, node* leftSon)
         : key(key), data(data),
           rightSon(rightSon), leftSon(leftSon), parent(nullptr){}
 

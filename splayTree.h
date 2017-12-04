@@ -41,13 +41,26 @@ public:
         destroyTree();
     }
 
+    void remove(K key){
+        find(key);
+        node *right = root->rightSon, *left = root->leftSon;
+        delete root;
+        size--;
+        if(size == 0) root = NULL;
+        else join(right, left);
+    }
+
     void insert(K key, const T& data) {
         node * newNode = new node(data, key, NULL, NULL);
         if (!root) {
             root = newNode;
+            size++;
             return;
         }
-        find(key);
+        try {
+            find(key);
+        }
+        catch (...){};
         if(root->key == key) throw (alreadyIn());
         size++;
         if (root->key < key) {
@@ -67,46 +80,58 @@ public:
         if (root->leftSon) root->leftSon->parent = root;
     }
 
-    void remove(K key){
-        find(key);
-        node *right = root->rightSon, *left = root->leftSon;
-        if (root->key == key) delete root;
-        else throw (ElementNotFound());
-        size--;
-        join(right, left);
+    T& findData(K key){
+        return find(key)->data;
     }
 
-    T& find(K key){
-        if (!root) return NULL;
+    node* find(K key){
+        if (!root) throw ElementNotFound();
         splay(find(key, root));
-        if (root->key != key) throw ElementNotFound();
-        return root->data;
+        if (!(root->key == key)) throw ElementNotFound();
+        return root;
     }
 
-    T& findMax(){
-        if (!root) return NULL;
-        node * max = root;
-        while (max->rightSon){
-            max = max->rightSon;
-        }
-  //      splay(max);
-        return root->data;
+    void splayMax(){
+            if (!root) return;
+            node * max = root;
+            while (max->rightSon){
+                max = max->rightSon;
+            }
+            splay(max);
     }
 
-    T& findMin(){
-        if (!root) return NULL;
+    void splayMin(){
+        if (!root) return;
         node * min = root;
         while (min->leftSon){
             min = min->leftSon;
         }
-       // splay(min);
-        return root->data;
+        splay(min);
+    }
+
+    T& findMax(){
+        if (!root) throw ElementNotFound();
+        node * max = root;
+        while (max->rightSon){
+            max = max->rightSon;
+        }
+        return max->data;
+    }
+
+
+    T& findMin(){
+        if (!root) throw ElementNotFound();
+        node * min = root;
+        while (min->leftSon){
+            min = min->leftSon;
+        }
+        return min->data;
     }
 
     void join(SplayTree T1, SplayTree T2){
-        splay(find(T2.findMax(), root));
+        T2.splayMax();
         if (!T2.root){
-            splay(find(T1.findMin(), root));
+            T1.splayMin();
             root = T1.root;
             T1.root = NULL;
             return;
@@ -215,11 +240,9 @@ private:
     }
 
     void addToDataVec(T* allData, int *place, node *father){
-        assert(*place < size);
         if (!father) return;
         addToDataVec(allData, place, father->leftSon);
-        allData[place] = father->data;
-        *place++;
+        allData[(*place)++] = father->data;
         addToDataVec(allData, place, father->rightSon);
     }
 };

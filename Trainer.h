@@ -3,10 +3,6 @@
 #include "splayTree.h"
 #include "Gladiator.h"
 
-
-//TODO:
-
-
 class Trainer {
 private:
     int id;
@@ -24,7 +20,8 @@ public:
     void removeGladiator(Gladiator glad){
         gladById.remove(glad.getId());
         gladByLvl.remove(levelKey(glad.getId(),glad.getLevel()));
-        topGladId=gladByLvl.findMax().getId();
+        if (!gladByLvl.getSize()) topGladId = -1;
+        else topGladId=gladByLvl.findMax().getId();
     }
 
     void updateLvl(Gladiator glad,int lvlIncrease){

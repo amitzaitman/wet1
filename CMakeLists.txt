@@ -5,14 +5,13 @@ set(g++ –DNDEBUG –Wall)
 
 set(SOURCE_FILES
         library1.h
-        #library1_tests.cpp
-        main1.cpp
+        library1_tests.cpp
+#        main1.cpp
         splayTree.h
-        splayTree.cpp
         libary1.cpp
         Colosseum.cpp
         Colosseum.h
-        Trainer.h
-        test1.cpp)
+        Gladiator.h
+        Trainer.h)
 
 add_executable(wet1 ${SOURCE_FILES})

@@ -168,9 +168,9 @@ static errorType parser(const char* const command) {
 	case (GETALLGLADIATORS_CMD):
 		rtn_val = OnGetAllGladiatorsByLevel(DS, command_args);
 		break;
-	case (UPDATE_CMD):
-		rtn_val = OnUpdateLevels(DS, command_args);
-		break;
+//	case (UPDATE_CMD):
+//		rtn_val = OnUpdateLevels(DS, command_args);
+//		break;
 	case (QUIT_CMD):
 		rtn_val = OnQuit(&DS, command_args);
 		break;
@@ -357,21 +357,21 @@ static errorType OnGetAllGladiatorsByLevel(void* DS, const char* const command) 
 /***************************************************************************/
 /* OnUpdateLevels                                                           */
 /***************************************************************************/
-static errorType OnUpdateLevels(void* DS, const char* const command) {
-	int stimulantCode;
-	int stimulantFactor;
-	ValidateRead(sscanf(command, "%d %d", &stimulantCode, &stimulantFactor), 2,
-			"UpdateLevels failed.\n");
-	StatusType res = UpdateLevels(DS, stimulantCode, stimulantFactor);
-
-	if (res != SUCCESS) {
-		printf("UpdateLevels: %s\n", ReturnValToStr(res));
-		return error_free;
-	}
-
-	printf("UpdateLevels: %s\n", ReturnValToStr(res));
-	return error_free;
-}
+//static errorType OnUpdateLevels(void* DS, const char* const command) {
+//	int stimulantCode;
+//	int stimulantFactor;
+//	ValidateRead(sscanf(command, "%d %d", &stimulantCode, &stimulantFactor), 2,
+//			"UpdateLevels failed.\n");
+//	StatusType res = UpdateLevels(DS, stimulantCode, stimulantFactor);
+//
+//	if (res != SUCCESS) {
+//		printf("UpdateLevels: %s\n", ReturnValToStr(res));
+//		return error_free;
+//	}
+//
+//	printf("UpdateLevels: %s\n", ReturnValToStr(res));
+//	return error_free;
+//}
 
 /***************************************************************************/
 /* OnQuit                                                                  */
