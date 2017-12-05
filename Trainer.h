@@ -3,6 +3,11 @@
 #include "splayTree.h"
 #include "Gladiator.h"
 
+template <class T>
+bool alwaysTrue(T t){
+    return true;
+}
+
 class Trainer {
 private:
     int id;
@@ -41,6 +46,10 @@ public:
         gladByLvl.insert(glad,glad);
         topGladId = gladByLvl.findMax().getId();
     }
+    void  updateLevels(int stimulantCode,int stimulantFactor){
+        UpdateIdTree(&gladById,stimulantCode,stimulantFactor);
+        UpdateLevelTree(&gladByLvl,stimulantCode,stimulantFactor);
+    }
 
     int getId()const{
         return id;
@@ -52,11 +61,11 @@ public:
         return gladById.getSize();
     }
     Gladiator* getGladiatorsByLevel(){
-        return gladByLvl.getAllData();
+        int a = 0;
+        return gladByLvl.getDataByPred(alwaysTrue<Gladiator>, &a);
     }
     bool operator==(const Trainer& trainer){
         return (id==trainer.getId());
     }
-
 };
 #endif //WET1_TRAINER_H

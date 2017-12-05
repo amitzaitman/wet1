@@ -145,14 +145,12 @@ public:
         T2.root = NULL;
     }
 
-    T* getAllData(){
+    template <class Pred>
+    T* getDataByPred(Pred pred, int* count){
         if(!size) return NULL;
-        T* allData = (T*) malloc(size * sizeof(T));
-        if(!allData) {
-            throw std::bad_alloc();
-        }
-        int place = 0;
-        addToDataVec(allData, &place, root);
+        T* allData = new T[size * sizeof(*allData)];
+        *count = 0;
+        addToDataVec(allData, pred, count, root);
         return allData;
     }
 
@@ -170,6 +168,7 @@ private:
         if (father->leftSon) destroyTree(father->leftSon);
         if (father->rightSon) destroyTree(father->rightSon);
         delete father;
+        size--;
     }
 
     void splay(node *x) {
@@ -239,11 +238,12 @@ private:
         x->parent = y;
     }
 
-    void addToDataVec(T* allData, int *place, node *father){
+    template <class Pred>
+    void addToDataVec(T* DataByPred, Pred pred,  int *place, node *father){
         if (!father) return;
-        addToDataVec(allData, place, father->leftSon);
-        allData[(*place)++] = father->data;
-        addToDataVec(allData, place, father->rightSon);
+        addToDataVec(DataByPred,pred, place, father->leftSon);
+        if (pred(father->data)) DataByPred[(*place)++] = father->data;
+        addToDataVec(DataByPred, pred, place, father->rightSon);
     }
 };
 

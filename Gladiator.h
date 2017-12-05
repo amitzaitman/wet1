@@ -9,6 +9,7 @@ class Gladiator {
     int lvl;
     Trainer* trainer;
 public:
+    Gladiator(){};
     Gladiator(int id,int lvl, Trainer* trainer) : id(id), lvl(lvl), trainer(trainer){};
     ~Gladiator(){};
     void setLevel(int newLevel){

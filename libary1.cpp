@@ -139,11 +139,11 @@
     *                INVALID_INPUT - If DS==NULL or if stimulantCode < 1 or if stimulantFactor <1
     *                SUCCESS - Otherwise.
     */
-    StatusType UpdateLevels(void *DS, int stimulantCode, int stimulantFactor) {
-        if (!DS || stimulantCode < 1 || stimulantFactor < 1)
-            return INVALID_INPUT;
-        return ((Colosseum *) DS)->UpdateLevels(stimulantCode, stimulantFactor);
-    }
+//    StatusType UpdateLevels(void *DS, int stimulantCode, int stimulantFactor) {
+//        if (!DS || stimulantCode < 1 || stimulantFactor < 1)
+//            return INVALID_INPUT;
+//        return ((Colosseum *) DS)->UpdateLevels(stimulantCode, stimulantFactor);
+//    }
 
 
     /* Description:   Quits and deletes the database.
